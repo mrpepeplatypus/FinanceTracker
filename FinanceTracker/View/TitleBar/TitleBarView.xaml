@@ -5,13 +5,43 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FinanceTracker.View.TitleBar"
              mc:Ignorable="d" 
-             d:DesignHeight="30" d:DesignWidth="800">
-    
-    <Grid Background="#131111" >
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" >
-            <Button x:Name="btnClose" Content="—" Width="70" Height="30" Background="#131111" Foreground="White" Click="btnMinimize_Click"></Button>
-            <Button x:Name="btnMaximize" Content="🗖" Width="70" Height="30" Background="#131111" Foreground="White" Click="btnMaximize_Click"></Button>
-            <Button x:Name="btnMinimize" Content="X" Width="70" Height="30" Background="#131111" Foreground="White" Click="btnClose_Click"></Button>
+             d:DesignHeight="35" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#131111"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Width" Value="70"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#193820"/>
+                </Trigger>               
+            </Style.Triggers>
+        </Style>
+        
+    </UserControl.Resources>
+    <Grid Background="#131111" MouseLeftButtonDown="Window_MouseMove">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="210"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column="1">
+            <Button x:Name="btnMinimize"  Content="—" Click="btnMinimize_Click"></Button>
+            <Button x:Name="btnMaximize" Content="🗖" Click="btnMaximize_Click"></Button>
+            <Button x:Name="btnClose" Content="X" Click="btnClose_Click"></Button>
         </StackPanel>
     </Grid>
 </UserControl>

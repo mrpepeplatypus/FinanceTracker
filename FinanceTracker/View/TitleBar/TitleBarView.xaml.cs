@@ -48,5 +48,11 @@ namespace FinanceTracker.View.TitleBar
             var window = Window.GetWindow(this);
                 window.WindowState = WindowState.Minimized;
         }
+
+        private void Window_MouseMove(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var window = Window.GetWindow(this);
+            window.DragMove();
+        }
     }
 }
