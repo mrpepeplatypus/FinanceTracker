@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FinanceTracker"
+        xmlns:TitleBarView="clr-namespace:FinanceTracker.View.TitleBar"
         mc:Ignorable="d" WindowStyle="None"
         Title="MainWindow" Height="450" Width="800"> 
     <Grid>
@@ -14,7 +15,7 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
-            
+            <TitleBarView:TitleBarView/>
         </Grid>
 
         <Grid Grid.Row="1">

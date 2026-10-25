@@ -13,16 +13,40 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace FinanceTracker.View.TitleBar
 {
-    /// <summary>
-    /// Logika interakcji dla klasy TitleBarView.xaml
-    /// </summary>
+    
     public partial class TitleBarView : UserControl
     {
         public TitleBarView()
         {
             InitializeComponent();
+        }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            var window = Window.GetWindow(this);
+            window?.Close();
+        }
+
+        private void btnMaximize_Click(object sender, RoutedEventArgs e)
+        {
+            var window = Window.GetWindow(this);
+            if (window.WindowState == WindowState.Maximized) 
+            {
+                window.WindowState = WindowState.Normal;
+            }
+            else
+            {
+                window.WindowState = WindowState.Maximized;
+            }
+        }
+
+        private void btnMinimize_Click(object sender,  RoutedEventArgs e)
+        {
+            var window = Window.GetWindow(this);
+                window.WindowState = WindowState.Minimized;
         }
     }
 }
