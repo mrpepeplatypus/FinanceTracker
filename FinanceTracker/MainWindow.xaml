@@ -11,7 +11,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="37"/>
             <RowDefinition />
         </Grid.RowDefinitions>
 
@@ -22,5 +22,7 @@
         <Grid Grid.Row="1">
             <MenuBar:MenuBar/>
         </Grid>
+
+        <Grid Grid.Row="2" Background="#1A1A1A"></Grid>
     </Grid>
 </Window>
