@@ -13,15 +13,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FinanceTracker.View.TitleBar.MenuBar
+namespace FinanceTracker.View.IncomeView
 {
-    public partial class MenuBar : UserControl
+    public partial class IncomeViewUC : UserControl
     {
-        public MenuBar()
+        public IncomeViewUC()
         {
             InitializeComponent();
-
-
         }
     }
 }
