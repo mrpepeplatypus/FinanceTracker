@@ -15,6 +15,9 @@
 
             <Setter Property="BorderBrush" Value="White"/>
             <Setter Property="BorderThickness" Value="2.5"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontFamily" Value="Corbel"/>
 
             <Setter Property="Template">
                 <Setter.Value>
@@ -42,7 +45,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Button x:Name="btnIncome" Grid.Column="0" Content="INCOMES" Click="btnIncome_Click"></Button>
+        <Button x:Name="btnIncome" Grid.Column="0" Content="INCOMES"  Click="btnIncome_Click"></Button>
         <Button x:Name="btnSpendings" Grid.Column="1" Content="SPENDINGS" ></Button>
         <Button x:Name="btnInvestments" Grid.Column="2" Content="INVESTMENTS"  ></Button>
     </Grid>

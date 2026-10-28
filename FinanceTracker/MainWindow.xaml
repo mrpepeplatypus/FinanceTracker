@@ -16,6 +16,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        
         <Grid Grid.Row="0" VerticalAlignment="Top">
             <TitleBarView:TitleBarView/>
         </Grid>
