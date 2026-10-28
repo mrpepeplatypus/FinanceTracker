@@ -9,21 +9,39 @@
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
         <Grid Background="#1A1A1A">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="323"/>
                 <RowDefinition Height="378"/>
+                <RowDefinition Height="86"/>
+                <RowDefinition Height="320"/>
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
-                <TextBlock Text="YOUR INCOMES" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Foreground="#193820" Margin="10"/>
-            </Grid>
-            
-            <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1.66*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
             </Grid>
+
+
+            <Grid Grid.Row="1">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" TextAlignment="Center" 
+       FontSize="27" Foreground="#1F4726" Margin="0, 12, 0, 0">
+YOUR INCOMES <LineBreak/> THIS MONTH
+                </TextBlock>
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <ListBox ItemsSource="{Binding Incomes}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Name}" Margin="0, 0, 10, 0"/>
+                                <TextBlock Text="{Binding Value}" FontWeight="Bold"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+            
         </Grid>
     </ScrollViewer>
 </UserControl>

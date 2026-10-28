@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FinanceTracker.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,11 @@ namespace FinanceTracker.View.IncomeView
         public IncomeViewUC()
         {
             InitializeComponent();
+
+            this.DataContext = new IncomeListVM();
         }
+
+        
+
     }
 }
