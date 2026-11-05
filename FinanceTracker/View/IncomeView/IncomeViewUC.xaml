@@ -20,7 +20,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
             </Grid>
-
+            
 
             <Grid Grid.Row="1">
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" TextAlignment="Center" 
@@ -29,14 +29,28 @@ YOUR INCOMES <LineBreak/> THIS MONTH
                 </TextBlock>
             </Grid>
 
-            <Grid Grid.Row="2">
-                <ListBox ItemsSource="{Binding Incomes}">
+            <Grid Grid.Row="2" Width="Auto">
+                <ListBox ItemsSource="{Binding Incomes}" Width="Auto">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Name}" Margin="0, 0, 10, 0"/>
-                                <TextBlock Text="{Binding Value}" FontWeight="Bold"/>
-                            </StackPanel>
+                            <Border Background="Gray" CornerRadius="8" Padding="20, 15" Margin="5"
+                                    BorderThickness="1" Width="Auto">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition Width="2.5"/>
+                                        <ColumnDefinition Width="1.5*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="1.5*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Column="0" Text="{Binding Name}" VerticalAlignment="Center" />
+                                    <TextBlock Grid.Column="1" Text="{Binding Value}" VerticalAlignment="Center" Margin="10, 0"/>
+                                    <Button Grid.Column="2" Content="Add" Command="{Binding AddCommand}" Cursor="Hand" Margin="10, 0"/>
+                                    <TextBlock Grid.Column="3" Text="{Binding LastEdited, StringFormat={}{dd:MM:yyy HH:mm}}"  Margin="10, 0"/>
+                                    <Button Grid.Column="4" Content="Remove" Command="{Binding RemoveCommand}" Cursor="Hand" Margin="10, 0"/>
+                                </Grid>
+                            </Border>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
