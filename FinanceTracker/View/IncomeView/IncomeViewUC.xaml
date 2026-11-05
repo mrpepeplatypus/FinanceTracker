@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:FinanceTracker.View.IncomeView"
              mc:Ignorable="d" 
              d:DesignHeight="378" d:DesignWidth="800">
-    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" 
+                  HorizontalScrollBarVisibility="Disabled">
         <Grid Background="#1A1A1A">
             <Grid.RowDefinitions>
                 <RowDefinition Height="378"/>
@@ -23,32 +24,93 @@
             
 
             <Grid Grid.Row="1">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" TextAlignment="Center" 
-       FontSize="27" Foreground="#1F4726" Margin="0, 12, 0, 0">
+                <TextBlock HorizontalAlignment="Center" 
+                           VerticalAlignment="Top" 
+                           TextAlignment="Center" 
+                           FontSize="27" 
+                           Foreground="#1F4726" 
+                           Margin="0, 12, 0, 0">
 YOUR INCOMES <LineBreak/> THIS MONTH
                 </TextBlock>
             </Grid>
-
+            
+            <!-- INCOME LIST -->
             <Grid Grid.Row="2" Width="Auto">
-                <ListBox ItemsSource="{Binding Incomes}" Width="Auto">
+                <ListBox ItemsSource="{Binding Incomes}" 
+                         Width="Auto"
+                         HorizontalAlignment="Stretch">
+                        <!-- SPREADING A LIST TO ENTIRE ROW-->
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="Margin" Value="0, 3"/>
+                            <Setter Property="Padding" Value="0"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <ContentPresenter />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Border Background="Gray" CornerRadius="8" Padding="20, 15" Margin="5"
-                                    BorderThickness="1" Width="Auto">
+                            <Border Background="#242424"
+                                    CornerRadius="10"
+                                    Padding="20, 15"
+                                    Margin="10, 6"
+                                    BorderBrush="#333333"
+                                    Width="Auto">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="3*"/>
                                         <ColumnDefinition Width="2.5"/>
-                                        <ColumnDefinition Width="1.5*"/>
+                                        <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="2*"/>
-                                        <ColumnDefinition Width="1.5*"/>
+                                        <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-
-                                    <TextBlock Grid.Column="0" Text="{Binding Name}" VerticalAlignment="Center" />
-                                    <TextBlock Grid.Column="1" Text="{Binding Value}" VerticalAlignment="Center" Margin="10, 0"/>
-                                    <Button Grid.Column="2" Content="Add" Command="{Binding AddCommand}" Cursor="Hand" Margin="10, 0"/>
-                                    <TextBlock Grid.Column="3" Text="{Binding LastEdited, StringFormat={}{dd:MM:yyy HH:mm}}"  Margin="10, 0"/>
-                                    <Button Grid.Column="4" Content="Remove" Command="{Binding RemoveCommand}" Cursor="Hand" Margin="10, 0"/>
+                                        <!-- NAME -->
+                                    <TextBlock Grid.Column="0" 
+                                               Text="{Binding Name}" 
+                                               VerticalAlignment="Center" 
+                                               FontSize="16" 
+                                               FontWeight="SemiBold" 
+                                               Foreground="#E0E0E0" />
+                                    <!-- EARNINGS, VALUE -->
+                                    <TextBlock Grid.Column="1" 
+                                                Text="{Binding Value, StringFormat={}{0:C}}" 
+                                                VerticalAlignment="Center" 
+                                                FontSize="16" 
+                                                FontWeight="Bold" 
+                                                Foreground="#4CAF50"/>
+                                    <!-- ADDING BUTTON -->
+                                    <Button Grid.Column="2" 
+                                            Content="Add" 
+                                            Command="{Binding AddCommand}" 
+                                            Cursor="Hand"
+                                            Margin="15,0,5,0" 
+                                            Padding="15,6" 
+                                            Background="#1F4726" 
+                                            Foreground="White" 
+                                            BorderThickness="0"/>
+                                    <!-- DATE WITH A HOUR -->
+                                    <TextBlock Grid.Column="3" 
+                                               Text="{Binding LastEdited, StringFormat={}{0:dd MMM yyyy, HH:mm}}" 
+                                               VerticalAlignment="Center" 
+                                               FontSize="12" 
+                                               Foreground="#888888"/>
+                                    <!-- REMOVE BUTTON -->
+                                    <Button Grid.Column="4" 
+                                            Content="Remove" 
+                                            Command="{Binding RemoveCommand}" 
+                                            Cursor="Hand"
+                                            Margin="5,0,0,0" 
+                                            Padding="15,6" 
+                                            Background="#4A1E1E" 
+                                            Foreground="#FF8888" 
+                                            BorderThickness="0"/>
                                 </Grid>
                             </Border>
                         </DataTemplate>
