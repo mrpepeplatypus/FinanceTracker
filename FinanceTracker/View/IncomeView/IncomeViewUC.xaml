@@ -10,9 +10,10 @@
                   HorizontalScrollBarVisibility="Disabled">
         <Grid Background="#1A1A1A">
             <Grid.RowDefinitions>
-                <RowDefinition Height="378"/>
-                <RowDefinition Height="86"/>
-                <RowDefinition Height="320"/>
+                <RowDefinition Height="378"/> <!-- Space for diagrams, summaries-->
+                <RowDefinition Height="86"/> <!-- Space for section name-->
+                <RowDefinition Height="40"/> <!-- Space for add button (entire list) -->
+                <RowDefinition Height="320"/> <!-- Space for Income Lists -->
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
@@ -33,9 +34,19 @@
 YOUR INCOMES <LineBreak/> THIS MONTH
                 </TextBlock>
             </Grid>
+
+            <Grid Grid.Row="2">
+                <Button Content="+"
+                        Command="{Binding AddCommand}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Margin="10, 0" Padding="20, 10"
+                        Background="#1F4726" Foreground="White" BorderThickness="0" Cursor="Hand">
+                </Button>
+            </Grid>
             
             <!-- INCOME LIST -->
-            <Grid Grid.Row="2" Width="Auto">
+            <Grid Grid.Row="3" Width="Auto">
                 <ListBox ItemsSource="{Binding Incomes}" 
                          Width="Auto"
                          HorizontalAlignment="Stretch">
@@ -66,21 +77,21 @@ YOUR INCOMES <LineBreak/> THIS MONTH
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="3*"/>
-                                        <ColumnDefinition Width="2.5"/>
+                                        <ColumnDefinition Width="2.5*"/>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="2*"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                         <!-- NAME -->
-                                    <TextBlock Grid.Column="0" 
-                                               Text="{Binding Name}" 
+                                    <TextBox Grid.Column="0" 
+                                               Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" 
                                                VerticalAlignment="Center" 
                                                FontSize="16" 
                                                FontWeight="SemiBold" 
                                                Foreground="#E0E0E0" />
                                     <!-- EARNINGS, VALUE -->
-                                    <TextBlock Grid.Column="1" 
-                                                Text="{Binding Value, StringFormat={}{0:C}}" 
+                                    <TextBox Grid.Column="1" 
+                                                Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}" 
                                                 VerticalAlignment="Center" 
                                                 FontSize="16" 
                                                 FontWeight="Bold" 
@@ -88,7 +99,7 @@ YOUR INCOMES <LineBreak/> THIS MONTH
                                     <!-- ADDING BUTTON -->
                                     <Button Grid.Column="2" 
                                             Content="Add" 
-                                            Command="{Binding AddCommand}" 
+                                            Command="{Binding DataContext.AddCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" 
                                             Cursor="Hand"
                                             Margin="15,0,5,0" 
                                             Padding="15,6" 
@@ -97,14 +108,15 @@ YOUR INCOMES <LineBreak/> THIS MONTH
                                             BorderThickness="0"/>
                                     <!-- DATE WITH A HOUR -->
                                     <TextBlock Grid.Column="3" 
-                                               Text="{Binding LastEdited, StringFormat={}{0:dd MMM yyyy, HH:mm}}" 
+                                               Text="{Binding LastEdited, StringFormat='{}{0:dd MMM yyyy, HH:mm}'}"
                                                VerticalAlignment="Center" 
                                                FontSize="12" 
                                                Foreground="#888888"/>
                                     <!-- REMOVE BUTTON -->
                                     <Button Grid.Column="4" 
                                             Content="Remove" 
-                                            Command="{Binding RemoveCommand}" 
+                                            Command="{Binding DataContext.RemoveCommand, 
+                                        RelativeSource={RelativeSource AncestorType=ListBox}}" 
                                             Cursor="Hand"
                                             Margin="5,0,0,0" 
                                             Padding="15,6" 

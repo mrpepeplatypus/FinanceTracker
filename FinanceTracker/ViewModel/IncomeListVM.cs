@@ -26,7 +26,7 @@ namespace FinanceTracker.ViewModel
             RemoveCommand = new RelayCommand<IncomeListModel>(ExecuteRemove);
         }
 
-        
+        // Adding a list
         private void ExecuteAdd()
         {
             Incomes.Add(new IncomeListModel
@@ -35,6 +35,7 @@ namespace FinanceTracker.ViewModel
                 Value = 0
             });
         }
+        // Removing a list
         private void ExecuteRemove(IncomeListModel itemToRemove)
         {
             if (itemToRemove != null && Incomes.Contains(itemToRemove))

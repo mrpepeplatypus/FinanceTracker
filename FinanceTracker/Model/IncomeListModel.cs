@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -35,7 +36,7 @@ namespace FinanceTracker.ViewModel
                 {
                     _value = value;
                     // When the value was changed
-                    _lastEdited = DateTime.Now;
+                    LastEdited = DateTime.Now;
                     OnPropertyChanged();
                 
                 } 
@@ -52,11 +53,11 @@ namespace FinanceTracker.ViewModel
             }
         }
 
-        
 
-        private void OnPropertyChanged()
+
+        protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
-            throw new NotImplementedException();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
