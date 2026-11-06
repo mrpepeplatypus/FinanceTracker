@@ -9,6 +9,7 @@ namespace FinanceTracker.ViewModel
 {
     public class IncomeListModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler? PropertyChanged;
         private decimal _value;
         private string _name;
         private DateTime _lastEdited;
@@ -50,6 +51,8 @@ namespace FinanceTracker.ViewModel
                 OnPropertyChanged();
             }
         }
+
+        
 
         private void OnPropertyChanged()
         {
