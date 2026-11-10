@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LiveCharts;
+using LiveCharts.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -11,6 +13,7 @@ namespace FinanceTracker.ViewModel
     class IncomeListVM
     {
         public ObservableCollection<IncomeListModel> Incomes { get; set; }
+        public SeriesCollection PieChartIncome { get; set; }
         // Defining commands
         public ICommand AddCommand { get; }
         public ICommand RemoveCommand { get; }
@@ -21,6 +24,19 @@ namespace FinanceTracker.ViewModel
                 new IncomeListModel { Name = "Job", Value = 1000 },
                 new IncomeListModel { Name = "Freelancing", Value = 250 }
             };
+
+            // Pie Chart
+            PieChartIncome = new SeriesCollection();
+            foreach (var element in Incomes)
+            {
+                PieChartIncome.Add(new PieSeries
+                {
+                    Title = element.Name,
+                    Values = new ChartValues<decimal> { (decimal)element.Value },
+                    DataLabels = true
+                });
+            }
+
             // implementing commands
             AddCommand = new RelayCommand(ExecuteAdd);
             RemoveCommand = new RelayCommand<IncomeListModel>(ExecuteRemove);
@@ -29,10 +45,19 @@ namespace FinanceTracker.ViewModel
         // Adding a list
         private void ExecuteAdd()
         {
-            Incomes.Add(new IncomeListModel
+            var newIncome = new IncomeListModel
             {
                 Name = "New Income",
-                Value = 0
+                Value = 1000
+            };
+            
+            Incomes.Add(newIncome);
+            // Pie Chart
+            PieChartIncome.Add(new PieSeries
+            {
+                Title = newIncome.Name,
+                Values = new ChartValues<decimal> { (decimal)newIncome.Value },
+                DataLabels = true
             });
         }
         // Removing a list

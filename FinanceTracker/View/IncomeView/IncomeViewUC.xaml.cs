@@ -1,4 +1,6 @@
 ﻿using FinanceTracker.ViewModel;
+using LiveCharts;
+using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;

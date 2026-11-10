@@ -25,7 +25,7 @@
                 
                 <!-- Space for diagram (LiveChat) Library -->
                 <Grid Grid.Column="0">
-                    <lvc:PieChart Series="{Binding Incomes}" 
+                    <lvc:PieChart Series="{Binding PieChartIncome}" 
                                   Margin="20"/>
                     
                 </Grid>
