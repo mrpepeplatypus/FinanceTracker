@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Data;
+using LiveCharts.Configurations;
 
 namespace FinanceTracker.ViewModel
 {
@@ -27,6 +29,12 @@ namespace FinanceTracker.ViewModel
 
             // Pie Chart
             PieChartIncome = new SeriesCollection();
+
+            var income = new IncomeListModel();
+            Incomes.Add(income);
+            AddIncomeToChart(income);
+
+            
             foreach (var element in Incomes)
             {
                 PieChartIncome.Add(new PieSeries
@@ -36,6 +44,7 @@ namespace FinanceTracker.ViewModel
                     DataLabels = true
                 });
             }
+
 
             // implementing commands
             AddCommand = new RelayCommand(ExecuteAdd);
@@ -51,14 +60,24 @@ namespace FinanceTracker.ViewModel
                 Value = 1000
             };
             
-            Incomes.Add(newIncome);
             // Pie Chart
-            PieChartIncome.Add(new PieSeries
+            Incomes.Add(newIncome);
+            AddIncomeToChart(newIncome);
+        }
+
+        // PieChart method (to listen)
+        private void AddIncomeToChart(IncomeListModel item)
+        {
+            var series = new PieSeries
             {
-                Title = newIncome.Name,
-                Values = new ChartValues<decimal> { (decimal)newIncome.Value },
+                Values = new ChartValues<IncomeListModel> { item },
+                Configuration = Mappers.Pie<IncomeListModel>().Value(model => (double)model.Value),
                 DataLabels = true
-            });
+            };
+
+            BindingOperations.SetBinding(series, PieSeries.TitleProperty, new Binding("Name")  { Source = item });
+
+            PieChartIncome.Add(series);
         }
         // Removing a list
         private void ExecuteRemove(IncomeListModel itemToRemove)
