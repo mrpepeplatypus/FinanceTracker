@@ -72,12 +72,25 @@ namespace FinanceTracker.ViewModel
             {
                 Values = new ChartValues<IncomeListModel> { item },
                 Configuration = Mappers.Pie<IncomeListModel>().Value(model => (double)model.Value),
-                DataLabels = true
+                DataLabels = true,
+                Tag = item
             };
 
             BindingOperations.SetBinding(series, PieSeries.TitleProperty, new Binding("Name")  { Source = item });
 
             PieChartIncome.Add(series);
+        }
+
+        private void RemoveIncomeToChart(IncomeListModel item)
+        {
+            var seriesToRemove = PieChartIncome
+        .OfType<PieSeries>()
+        .FirstOrDefault(s => ReferenceEquals(s.Tag, item) || (s.Values != null && s.Values.Cast<object>().Contains(item)));
+            if (seriesToRemove != null)
+            {
+                BindingOperations.ClearAllBindings(seriesToRemove);
+                PieChartIncome.Remove(seriesToRemove);
+            }
         }
         // Removing a list
         private void ExecuteRemove(IncomeListModel itemToRemove)
@@ -86,6 +99,7 @@ namespace FinanceTracker.ViewModel
             {
                 Incomes.Remove(itemToRemove);
             }
+            RemoveIncomeToChart(itemToRemove);
         }
 
     }
