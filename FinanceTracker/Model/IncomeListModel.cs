@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace FinanceTracker.ViewModel
 {
@@ -12,8 +13,22 @@ namespace FinanceTracker.ViewModel
     {
         public event PropertyChangedEventHandler? PropertyChanged;
         private decimal _value;
-        private string _name;
+        private string _name = string.Empty;
+        private Brush? _color;
         private DateTime _lastEdited;
+
+        public Brush? Color
+        {
+            get => _color;
+            set
+            {
+                if (_color != value)
+                {
+                    _color = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public string Name
         {
             get => _name;

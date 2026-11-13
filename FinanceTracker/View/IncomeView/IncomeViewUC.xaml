@@ -27,13 +27,33 @@
                 <Grid Grid.Column="0">
                     <lvc:PieChart Series="{Binding PieChartIncome}" 
                                   Margin="20"/>
-                    
                 </Grid>
                 
                 <!-- Space for summaries -->
                 <Grid Grid.Column="1">
-                    
-                    
+                    <ItemsControl ItemsSource="{Binding Incomes}" VerticalAlignment="Center" >
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="5, 20, 0, 5" 
+                                            HorizontalAlignment="Left" 
+                                            VerticalAlignment="Center" >
+                                    <Rectangle Width="16" 
+                                        Height="16" 
+                                        Fill="{Binding Color}" 
+                                        Margin="0,0,10,0" 
+                                        RadiusX="2" 
+                                        RadiusY="2" />
+
+                                        <TextBlock Text="{Binding Name}" 
+                                        VerticalAlignment="Center" 
+                                        FontSize="15"
+                                        Foreground="White"
+                                                   />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                        
                 </Grid>
 
             </Grid>

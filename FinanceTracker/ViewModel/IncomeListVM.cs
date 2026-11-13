@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Data;
+using System.Windows.Media;
 using LiveCharts.Configurations;
 
 namespace FinanceTracker.ViewModel
@@ -19,6 +20,40 @@ namespace FinanceTracker.ViewModel
         // Defining commands
         public ICommand AddCommand { get; }
         public ICommand RemoveCommand { get; }
+
+        // Pallet (Brush)
+        private static Brush Hex(string hex)
+        {
+            var brush = (SolidColorBrush)new BrushConverter().ConvertFromString(hex)!;
+            brush.Freeze();
+            return brush;
+        }
+
+        private readonly List<Brush> _colorPalette = new()
+        {
+            Hex("#2ECC71"), 
+            Hex("#3498DB"), 
+            Hex("#E74C3C"), 
+            Hex("#F1C40F"), 
+            Hex("#9B59B6"), 
+            Hex("#E67E22"), 
+            Hex("#1ABC9C"), 
+            Hex("#E84393"), 
+            Hex("#34495E"), 
+            Hex("#00CEC9")  
+        };
+
+        // Taking Next Colors
+        private Brush GetNextColor()
+        {
+            var usedColors = Incomes.Select(i => i.Color).Where(c => c != null).ToHashSet();
+            var available = _colorPalette.FirstOrDefault(b => !usedColors.Contains(b));
+            if (available != null)
+                return available;
+
+            return _colorPalette[Incomes.Count % _colorPalette.Count];
+        }
+
         public IncomeListVM()
         {   
             Incomes = new ObservableCollection<IncomeListModel>
@@ -30,21 +65,10 @@ namespace FinanceTracker.ViewModel
             // Pie Chart
             PieChartIncome = new SeriesCollection();
 
-            var income = new IncomeListModel();
-            Incomes.Add(income);
-            AddIncomeToChart(income);
-
-            
             foreach (var element in Incomes)
             {
-                PieChartIncome.Add(new PieSeries
-                {
-                    Title = element.Name,
-                    Values = new ChartValues<decimal> { (decimal)element.Value },
-                    DataLabels = true
-                });
+                AddIncomeToChart(element);
             }
-
 
             // implementing commands
             AddCommand = new RelayCommand(ExecuteAdd);
@@ -57,7 +81,8 @@ namespace FinanceTracker.ViewModel
             var newIncome = new IncomeListModel
             {
                 Name = "New Income",
-                Value = 1000
+                Value = 1000,
+                Color = GetNextColor()
             };
             
             // Pie Chart
@@ -68,15 +93,22 @@ namespace FinanceTracker.ViewModel
         // PieChart method (to listen)
         private void AddIncomeToChart(IncomeListModel item)
         {
+            if (item.Color == null)
+            {
+                item.Color = GetNextColor();
+            }
+
             var series = new PieSeries
             {
                 Values = new ChartValues<IncomeListModel> { item },
                 Configuration = Mappers.Pie<IncomeListModel>().Value(model => (double)model.Value),
                 DataLabels = true,
-                Tag = item
+                Tag = item,
+                Fill = item.Color // For Brush Color
             };
 
             BindingOperations.SetBinding(series, PieSeries.TitleProperty, new Binding("Name")  { Source = item });
+            BindingOperations.SetBinding(series, PieSeries.FillProperty, new Binding("Color")  { Source = item });
 
             PieChartIncome.Add(series);
         }
@@ -84,22 +116,24 @@ namespace FinanceTracker.ViewModel
         private void RemoveIncomeToChart(IncomeListModel item)
         {
             var seriesToRemove = PieChartIncome
-        .OfType<PieSeries>()
-        .FirstOrDefault(s => ReferenceEquals(s.Tag, item) || (s.Values != null && s.Values.Cast<object>().Contains(item)));
+                .OfType<PieSeries>()
+                .FirstOrDefault(s => ReferenceEquals(s.Tag, item) || (s.Values != null && s.Values.Cast<object>().Contains(item)));
+
             if (seriesToRemove != null)
             {
                 BindingOperations.ClearAllBindings(seriesToRemove);
                 PieChartIncome.Remove(seriesToRemove);
             }
         }
+
         // Removing a list
         private void ExecuteRemove(IncomeListModel itemToRemove)
         {
             if (itemToRemove != null && Incomes.Contains(itemToRemove))
             {
                 Incomes.Remove(itemToRemove);
+                RemoveIncomeToChart(itemToRemove);
             }
-            RemoveIncomeToChart(itemToRemove);
         }
 
     }
