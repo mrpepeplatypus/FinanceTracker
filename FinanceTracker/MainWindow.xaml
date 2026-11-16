@@ -22,10 +22,11 @@
         </Grid>
 
         <Grid Grid.Row="1">
-            <MenuBar:MenuBar/>
-        </Grid>
-        <Grid Grid.Row="2" Background="#1A1A1A"></Grid>
-        <MenuBar:MenuBar Grid.Row="1" IncomeChangeRequest="MenuBar_IncomeChangeRequest"/>
-        <ContentControl x:Name="IncomeContentArea" Grid.Row="2" />
+            </Grid>
+                <Grid Grid.Row="2" Background="#1A1A1A"></Grid>
+        <MenuBar:MenuBar Grid.Row="1" IncomeChangeRequest="MenuBar_IncomeChangeRequest" 
+                         SpendingsChangeRequest="MenuBar_SpendingsChangeRequest" />
+
+        <ContentControl x:Name="MainContentArea" Grid.Row="2"/>
     </Grid>
 </Window>

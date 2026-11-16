@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="FinanceTracker.View.SpendingsView.SpendingsViewUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FinanceTracker.View.SpendingsView"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="378"/> <!-- 0 - Space for PieChart and summaries -->
+            <RowDefinition Height="86"/> <!-- 1 - Section name -->
+            <RowDefinition Height="40"/> <!-- 2 - Adding entire list -->
+            <RowDefinition Height="320"/> <!-- 3 - Space for lists -->
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1">
+            <!-- PieChart -->
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <TextBlock Text="YOUR SPENDINGS THIS MONTH"/>
+        </Grid>
+
+        <Grid Grid.Row="3">
+            <!--  -->
+        </Grid>
+        
+        
+
+        <Grid Grid.Row="3">
+            
+        </Grid>
+        
+        
+    </Grid>
+</UserControl>

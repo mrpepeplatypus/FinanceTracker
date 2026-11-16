@@ -18,6 +18,8 @@ namespace FinanceTracker.View.TitleBar.MenuBar
     public partial class MenuBar : UserControl
     {
         public event EventHandler IncomeChangeRequest;
+        public event EventHandler<EventArgs> SpendingsChangeRequest;
+
         public MenuBar()
         {
             InitializeComponent();
@@ -26,6 +28,11 @@ namespace FinanceTracker.View.TitleBar.MenuBar
         private void btnIncome_Click(object sender, RoutedEventArgs e)
         {
             IncomeChangeRequest?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void btnSpendings_Click(object sender, RoutedEventArgs e)
+        {
+            SpendingsChangeRequest?.Invoke(this, EventArgs.Empty);
         }
     }
 }

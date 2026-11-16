@@ -21,7 +21,13 @@ namespace FinanceTracker
 
         private void MenuBar_IncomeChangeRequest(object sender, EventArgs e)
         {
-            IncomeContentArea.Content = new FinanceTracker.View.IncomeView.IncomeViewUC();
+            MainContentArea.Content = new FinanceTracker.View.IncomeView.IncomeViewUC();
         }
+
+        private void MenuBar_SpendingsChangeRequest(object sender, EventArgs e)
+        {
+            MainContentArea.Content = new FinanceTracker.View.SpendingsView.SpendingsViewUC();
+        }
+
     }   
 }
